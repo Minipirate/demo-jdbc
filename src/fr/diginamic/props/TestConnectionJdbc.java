@@ -6,6 +6,7 @@ package fr.diginamic.props;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 import org.mariadb.jdbc.Driver;
 
@@ -29,7 +30,14 @@ public class TestConnectionJdbc {
 		}
 		try {
 			// 2 => demander au DriverManager de fournir une co à une bdd de type MariaDB
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formation", "root", "");
+			ResourceBundle props = ResourceBundle.getBundle("data");
+			String url = props.getString("database.url");
+			String user = props.getString("database.user");
+			String password = props.getString("database.password");
+
+			Connection connection = DriverManager.getConnection(url, user, password);
+
+			
 
 			// 3 => Fermeture de la co
 			System.out.println(connection.isClosed());
